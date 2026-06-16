@@ -1,0 +1,125 @@
+<div class="plan-page-header">
+  <div>
+    <div class="section-title">แผนอาหารวันนี้</div>
+    <div class="section-sub">เลือกอาหารตามมื้อ ระบบจะช่วยติดตามสารอาหารแบบ real-time</div>
+  </div>
+  <div class="plan-page-actions">
+    <button class="quick-fill-btn" onclick="autoFill()">จัดเซ็ตเมนูอัตโนมัติ</button>
+    <button class="btn-secondary" onclick="clearPlan()">ล้างทั้งหมด</button>
+  </div>
+</div>
+
+<div class="planner-layout">
+  <!-- meal sections -->
+  <div>
+    <div class="meal-section" id="ms-breakfast">
+      <div class="meal-header" onclick="toggleMeal('breakfast')">
+        <div class="meal-header-left">
+          <span class="meal-dot" style="background:var(--amber)"></span>
+          <div>
+            <div class="meal-name">มื้อเช้า</div>
+            <div class="meal-kcal" id="sub-cal-breakfast">0 kcal</div>
+          </div>
+        </div>
+        <span class="meal-chevron" id="chevron-breakfast">▼</span>
+      </div>
+      <div class="meal-body" id="body-breakfast">
+        <div id="list-breakfast"><div class="empty-state"><div class="empty-state-icon">—</div>ยังไม่มีรายการมื้อเช้า</div></div>
+        <button class="add-food-btn" onclick="openModal('breakfast')">+ เพิ่มอาหารมื้อเช้า</button>
+      </div>
+    </div>
+
+    <div class="meal-section" id="ms-lunch">
+      <div class="meal-header" onclick="toggleMeal('lunch')">
+        <div class="meal-header-left">
+          <span class="meal-dot" style="background:var(--blue)"></span>
+          <div>
+            <div class="meal-name">มื้อกลางวัน</div>
+            <div class="meal-kcal" id="sub-cal-lunch">0 kcal</div>
+          </div>
+        </div>
+        <span class="meal-chevron" id="chevron-lunch">▼</span>
+      </div>
+      <div class="meal-body" id="body-lunch">
+        <div id="list-lunch"><div class="empty-state"><div class="empty-state-icon">—</div>ยังไม่มีรายการมื้อกลางวัน</div></div>
+        <button class="add-food-btn" onclick="openModal('lunch')">+ เพิ่มอาหารมื้อกลางวัน</button>
+      </div>
+    </div>
+
+    <div class="meal-section" id="ms-dinner">
+      <div class="meal-header" onclick="toggleMeal('dinner')">
+        <div class="meal-header-left">
+          <span class="meal-dot" style="background:var(--purple)"></span>
+          <div>
+            <div class="meal-name">มื้อเย็น</div>
+            <div class="meal-kcal" id="sub-cal-dinner">0 kcal</div>
+          </div>
+        </div>
+        <span class="meal-chevron" id="chevron-dinner">▼</span>
+      </div>
+      <div class="meal-body" id="body-dinner">
+        <div id="list-dinner"><div class="empty-state"><div class="empty-state-icon">—</div>ยังไม่มีรายการมื้อเย็น</div></div>
+        <button class="add-food-btn" onclick="openModal('dinner')">+ เพิ่มอาหารมื้อเย็น</button>
+      </div>
+    </div>
+
+    <div class="meal-section" id="ms-snack">
+      <div class="meal-header" onclick="toggleMeal('snack')">
+        <div class="meal-header-left">
+          <span class="meal-dot" style="background:var(--rose)"></span>
+          <div>
+            <div class="meal-name">ของว่าง</div>
+            <div class="meal-kcal" id="sub-cal-snack">0 kcal</div>
+          </div>
+        </div>
+        <span class="meal-chevron" id="chevron-snack">▼</span>
+      </div>
+      <div class="meal-body" id="body-snack">
+        <div id="list-snack"><div class="empty-state"><div class="empty-state-icon">—</div>ยังไม่มีของว่าง</div></div>
+        <button class="add-food-btn" onclick="openModal('snack')">+ เพิ่มของว่าง</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- sticky summary -->
+  <div class="sticky-summary">
+    <div class="card">
+      <div class="card-title">งบประมาณพลังงาน</div>
+      <div class="ring-wrap">
+        <svg class="ring-svg" width="160" height="160" viewBox="0 0 160 160">
+          <circle class="ring-track" cx="80" cy="80" r="60"/>
+          <circle class="ring-fill" id="plan-ring" cx="80" cy="80" r="60"
+            stroke="var(--accent)" stroke-dasharray="376.99" stroke-dashoffset="376.99"
+            transform="rotate(-90 80 80)" stroke-linecap="round"/>
+          <text class="ring-center-text" x="80" y="73" fill="var(--text)" font-family="Inter" font-size="22" font-weight="800" id="plan-ring-cal">0</text>
+          <text class="ring-center-text" x="80" y="93" fill="var(--text3)" font-family="Sarabun" font-size="11" id="plan-ring-remain">เหลืออีก</text>
+        </svg>
+      </div>
+      <div class="budget-bar-wrap">
+        <div class="budget-bar-meta">
+          <span id="plan-curr-cal">0</span>
+          <span id="plan-tgt-cal">/ 2,823 kcal</span>
+        </div>
+        <div class="budget-bar-track">
+          <div class="budget-bar-fill" id="plan-bar" style="width:0%;background:var(--accent)"></div>
+        </div>
+        <div class="budget-bar-status" id="plan-status-text">ยังไม่ได้เลือกเมนู</div>
+      </div>
+
+      <div style="margin-top:4px">
+        <div class="macro-pill">
+          <div class="macro-pill-left"><div class="macro-dot" style="background:var(--amber)"></div><span style="font-size:12px">คาร์บ</span></div>
+          <div class="macro-pill-right" style="font-size:12px" id="plan-carb">0g / 283g</div>
+        </div>
+        <div class="macro-pill">
+          <div class="macro-pill-left"><div class="macro-dot" style="background:var(--blue)"></div><span style="font-size:12px">โปรตีน</span></div>
+          <div class="macro-pill-right" style="font-size:12px" id="plan-prot">0g / 247g</div>
+        </div>
+        <div class="macro-pill">
+          <div class="macro-pill-left"><div class="macro-dot" style="background:var(--rose)"></div><span style="font-size:12px">ไขมัน</span></div>
+          <div class="macro-pill-right" style="font-size:12px" id="plan-fat">0g / 78g</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

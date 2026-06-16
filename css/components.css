@@ -1,0 +1,48 @@
+/* ══════════════════════════════════════════════════
+   components.css · History, Toast, Empty state, Misc
+   ══════════════════════════════════════════════════ */
+
+/* ── HISTORY ── */
+.history-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 13px 0; border-bottom: 1px solid var(--border);
+}
+.history-row:last-child { border-bottom: none; }
+.history-date { font-weight: 700; font-size: 13.5px; }
+.history-meta { font-size: 11.5px; color: var(--text3); margin-top: 2px; }
+.history-kcal { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 800; }
+.del-history-btn {
+  background: none; border: none; color: var(--text3); font-size: 13px;
+  width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: all .12s;
+}
+.del-history-btn:hover { background: var(--rose-dim); color: var(--rose); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: #fff;
+  padding: 10px 20px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; pointer-events: none;
+  transition: all .25s ease; z-index: 500; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast-icon { font-size: 15px; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center; padding: 28px 0; color: var(--text3); font-size: 13px;
+}
+.empty-state-icon {
+  font-size: 28px; margin-bottom: 8px; opacity: .4;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 18px 0; }

@@ -1,0 +1,28 @@
+<div class="page-title">รายการอาหาร</div>
+
+<div class="card" style="margin-bottom:16px">
+  <div class="card-title">ค้นหาและกรองรายการอาหาร</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <input class="form-input" type="text" id="foods-search" placeholder="ค้นหาชื่ออาหาร..." oninput="renderFoodsList()" style="flex:1;min-width:180px">
+    <select class="form-input" id="foods-meal-filter" onchange="renderFoodsList()" style="min-width:130px">
+      <option value="">ทุกมื้อ</option>
+      <option value="breakfast">มื้อเช้า</option>
+      <option value="lunch">มื้อกลางวัน</option>
+      <option value="dinner">มื้อเย็น</option>
+      <option value="snack">ของว่าง</option>
+    </select>
+    <select class="form-input" id="foods-goal-filter" onchange="renderFoodsList()" style="min-width:130px">
+      <option value="">ทุกเป้าหมาย</option>
+      <option value="lose">ลดน้ำหนัก</option>
+      <option value="muscle">สร้างกล้าม</option>
+      <option value="healthy">สุขภาพดี</option>
+      <option value="balance">สมดุล</option>
+    </select>
+  </div>
+</div>
+
+<div id="foods-list-container"></div>
+
+<div style="margin-top:24px;text-align:center">
+  <button class="btn-primary" onclick="showPage('macro', null)">ปรับสัดส่วนโภชนาการ →</button>
+</div>

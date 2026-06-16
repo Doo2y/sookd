@@ -1,0 +1,85 @@
+<div class="page-title">คำนวณแคลอรี่</div>
+
+<div class="card">
+  <div class="card-title">คำนวณมวลร่างกาย</div>
+
+  <!-- เพศ -->
+  <div class="form-group">
+    <div class="form-label">เพศ:</div>
+    <div class="radio-group">
+      <div class="radio-btn selected" id="rb-male" onclick="selectGender('male')">ชาย</div>
+      <div class="radio-btn" id="rb-female" onclick="selectGender('female')">หญิง</div>
+    </div>
+  </div>
+
+  <!-- น้ำหนัก + ส่วนสูง -->
+  <div class="grid-2">
+    <div class="form-group">
+      <label class="form-label">น้ำหนัก (กก.):</label>
+      <input class="form-input" type="number" id="inp-weight" value="60" oninput="onCalcInput()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">ส่วนสูง (ซม.):</label>
+      <input class="form-input" type="number" id="inp-height" value="169" oninput="onCalcInput()">
+    </div>
+  </div>
+
+  <!-- BMI display + figure -->
+  <div class="bmi-center-block">
+    <div class="bmi-result-line" id="res-bmi-line">BMI: <span id="res-bmi" style="color:var(--accent)">21.0</span> (<span id="res-bmi-status-inline">น้ำหนักปกติ</span>)</div>
+    <div class="bmi-figure-row">
+      <div class="bmi-dot-mark" id="bmi-dot-left"></div>
+      <div class="bmi-dot-mark" id="bmi-dot-right"></div>
+    </div>
+    <div class="bmi-person-icon">&#128694;</div>
+    <div class="bmi-bar-track" style="margin-top:10px">
+      <div class="bmi-bar-fill" id="res-bmi-bar" style="width:40%;background:var(--accent)"></div>
+    </div>
+    <div class="bmi-scale-labels">
+      <span>ผอม &lt;18.5</span><span>ปกติ &lt;23</span><span>ท้วม &lt;25</span><span>อ้วน ≥30</span>
+    </div>
+  </div>
+
+  <!-- อายุ -->
+  <div class="form-group" style="margin-top:18px">
+    <label class="form-label">อายุ (ปี):</label>
+    <input class="form-input" type="number" id="inp-age" value="20" oninput="onCalcInput()">
+  </div>
+
+  <!-- กิจกรรม -->
+  <div class="form-group">
+    <label class="form-label">กิจวัตรประจำวัน:</label>
+    <select class="form-input" id="inp-activity" onchange="onCalcInput()">
+      <option value="1.2">นั่งทำงาน / ไม่ค่อยขยับ</option>
+      <option value="1.375">ออกกำลังเบา 1–3 วัน/สัปดาห์</option>
+      <option value="1.55" selected>ออกกำลังกายปานกลาง 3-5 วัน/week</option>
+      <option value="1.725">ออกหนัก 6–7 วัน/สัปดาห์</option>
+      <option value="1.9">นักกีฬา / งานใช้แรงมาก</option>
+    </select>
+  </div>
+
+  <!-- เป้าหมาย -->
+  <div class="form-group">
+    <div class="form-label">เป้าหมายหลักของคุณคืออะไร (เลือกที่ต้องการที่สุด 1 รายการ)</div>
+    <div class="goal-grid">
+      <div class="goal-card" id="goal-lose" onclick="selectGoal('lose')">
+        <div class="goal-name">ลดน้ำหนัก</div>
+        <div class="goal-desc">−400 kcal/วัน</div>
+      </div>
+      <div class="goal-card" id="goal-healthy" onclick="selectGoal('healthy')">
+        <div class="goal-name">สุขภาพดี ไม่มีโรค</div>
+        <div class="goal-desc">รักษาน้ำหนัก</div>
+      </div>
+      <div class="goal-card selected" id="goal-muscle" onclick="selectGoal('muscle')">
+        <div class="goal-name">สร้างกล้ามเนื้อ</div>
+        <div class="goal-desc">+300 kcal/วัน</div>
+      </div>
+      <div class="goal-card" id="goal-balance" onclick="selectGoal('balance')">
+        <div class="goal-name">รักษาสมดุลระบบขับถ่าย</div>
+        <div class="goal-desc">ย่อยดี สุขภาพลำไส้</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="applyCalc()">ต่อไป</button>
+</div>

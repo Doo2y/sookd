@@ -1,0 +1,190 @@
+/* ══════════════════════════════════════════════════
+   base.css · CSS vars, Reset, Top nav, Sub nav
+   ══════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg:        #f2f3f5;
+  --surface:   #ffffff;
+  --surface2:  #f7f8fa;
+  --surface3:  #eceef2;
+  --border:    #e2e5ec;
+  --border2:   #c8cdd8;
+
+  --text:      #1a1d23;
+  --text2:     #5a6278;
+  --text3:     #9aa0b4;
+
+  --accent:        #2ea84b;
+  --accent-dark:   #228c3c;
+  --accent-dim:    rgba(46,168,75,.10);
+  --accent-glow:   rgba(46,168,75,.18);
+
+  --blue:      #3d7eff;
+  --blue-dim:  rgba(61,126,255,.10);
+  --amber:     #e8950a;
+  --amber-dim: rgba(232,149,10,.10);
+  --rose:      #e03c5a;
+  --rose-dim:  rgba(224,60,90,.10);
+  --purple:    #7c4dff;
+
+  --radius:    10px;
+  --radius-sm: 7px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+  --shadow:    0 2px 8px rgba(0,0,0,.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; }
+body {
+  font-family: 'Sarabun', 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+
+/* ── TOP NAV ── */
+.topnav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topnav-logo {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  white-space: nowrap;
+  min-width: 80px;
+  background: var(--surface3);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  letter-spacing: -.3px;
+}
+.topnav-logo span { color: var(--accent); }
+
+.topnav-search {
+  flex: 1;
+  max-width: 480px;
+  position: relative;
+}
+.topnav-search input {
+  width: 100%;
+  height: 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 0 40px 0 14px;
+  font-size: 13.5px;
+  background: var(--surface2);
+  color: var(--text);
+  outline: none;
+  transition: border-color .15s;
+}
+.topnav-search input:focus { border-color: var(--accent); background: #fff; }
+.topnav-search input::placeholder { color: var(--text3); }
+.topnav-search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.topnav-phone {
+  background: var(--text);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.topnav-phone:hover { background: #2a2d36; }
+
+.topnav-icon-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  color: var(--text2);
+  background: none;
+  border: none;
+  padding: 4px 2px;
+  white-space: nowrap;
+}
+.topnav-icon-btn:hover { color: var(--accent); }
+
+.topnav-cart {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 13px;
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.topnav-cart:hover { background: var(--accent-dark); }
+
+/* ── SUB NAV (horizontal page tabs) ── */
+.subnav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.subnav::-webkit-scrollbar { display: none; }
+
+.subnav-tab {
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  padding: 14px 18px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text2);
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  margin-bottom: -1px;
+}
+.subnav-tab:hover { color: var(--text); }
+.subnav-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}

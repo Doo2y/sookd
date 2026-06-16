@@ -1,0 +1,7 @@
+/* ══════════════════════════════════════════════════
+   macro.css · ring SVG for macro page (override sizes)
+   ══════════════════════════════════════════════════ */
+
+/* plan page ring (smaller) */
+#plan-ring-wrap .ring-track { stroke-width: 14; }
+#plan-ring-wrap .ring-fill  { stroke-width: 14; stroke-dasharray: 376.99; }
