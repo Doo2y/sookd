@@ -14,6 +14,15 @@ let state = {
   openMeals: { breakfast: true, lunch: true, dinner: true, snack: true },
   currentMeal: '',
   currentPage: 'calc',
+  subscription: {
+    selectedMeals: { breakfast: true, lunch: true, dinner: true, snack: false },
+    durationDays: 30,
+    startDateISO: null,
+    active: null,
+  },
+  // ปฏิทินเมนูของคำสั่งซื้อแบบสมาชิก — key เป็นวันที่ ISO (YYYY-MM-DD)
+  // ค่าของแต่ละวัน: { breakfast: [...], lunch: [...], dinner: [...], snack: [...], skipped: false }
+  subCalendar: {},
 };
 
 function persistState() {

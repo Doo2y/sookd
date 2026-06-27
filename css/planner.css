@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════
-   planner.css · Meal planner + sidebar summary
+   planner.css · Meal planner (Subscription & Batch)
    ══════════════════════════════════════════════════ */
 
 .plan-page-header {
@@ -7,6 +7,37 @@
   flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
 }
 .plan-page-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* --- ส่วนที่เพิ่มใหม่: แถบเลือกวันจัดส่ง (Batch Selector) --- */
+.batch-selector-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.batch-info {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+}
+.batch-badge {
+  background: var(--accent-dim); color: var(--accent);
+  padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;
+}
+.batch-date-range { font-size: 13px; color: var(--text); font-weight: 600; }
+.day-tabs { 
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+}
+/* ซ่อน Scrollbar ของ day-tabs เพื่อความสวยงาม */
+.day-tabs::-webkit-scrollbar { display: none; }
+.day-tab {
+  padding: 8px 16px; background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;
+  color: var(--text3); cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.day-tab:hover { background: var(--surface3); }
+.day-tab.active {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
 
 .planner-layout {
   display: grid;
@@ -38,31 +69,62 @@
 .meal-chevron { font-size: 11px; color: var(--text3); }
 .meal-body { padding: 0 20px 16px; }
 
-.food-item-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 10px 0; border-bottom: 1px solid var(--border);
+/* --- ปรับปรุงโครงสร้างการ์ดอาหารใหม่ --- */
+.food-item-card {
+  padding: 14px 0; border-bottom: 1px solid var(--border);
 }
-.food-item-row:last-of-type { border-bottom: none; }
+.food-item-card:last-child { border-bottom: none; }
+.food-item-main {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 10px;
+}
+.food-item-info { flex: 1; padding-right: 12px; }
 .food-item-name { font-size: 13.5px; font-weight: 600; color: var(--text); }
-.food-item-macros { font-size: 11.5px; color: var(--text3); margin-top: 2px; }
-.food-item-right { display: flex; align-items: center; gap: 10px; }
+.food-item-macros { font-size: 11.5px; color: var(--text3); margin-top: 4px; }
+.food-item-actions { display: flex; align-items: center; gap: 8px; }
 .food-kcal { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: var(--accent); }
+
+/* ปุ่มสลับเมนู (Swap) */
+.btn-swap-meal {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 4px; font-size: 11px; padding: 4px 8px;
+  cursor: pointer; color: var(--text); transition: all 0.15s;
+}
+.btn-swap-meal:hover { border-color: var(--accent); color: var(--accent); }
+
 .del-btn {
   background: none; border: none; color: var(--text3); font-size: 13px;
-  width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; transition: all .12s;
+  width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: all .12s; cursor: pointer;
 }
 .del-btn:hover { background: var(--rose-dim); color: var(--rose); }
+
+/* --- ส่วนที่เพิ่มใหม่: ระบบเลือกวัตถุดิบ (Ingredient Customizer) --- */
+.ingredient-customizer {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  background: var(--surface2); padding: 10px 12px;
+  border-radius: 6px; margin-top: 4px;
+}
+.alt-select-group { 
+  display: flex; align-items: center; gap: 8px; 
+  font-size: 12px; color: var(--text3); 
+}
+.alt-dropdown {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 4px 8px; font-size: 12px;
+  color: var(--text); cursor: pointer; outline: none; transition: border .15s;
+}
+.alt-dropdown:focus { border-color: var(--accent); }
 
 .add-food-btn {
   width: 100%; margin-top: 12px; padding: 9px;
   background: none; border: 1.5px dashed var(--border2);
   border-radius: var(--radius-sm); font-size: 13px;
-  color: var(--text3); font-weight: 600; transition: all .15s;
+  color: var(--text3); font-weight: 600; transition: all .15s; cursor: pointer;
 }
 .add-food-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-/* summary sidebar */
+/* --- Summary Sidebar --- */
 .budget-bar-wrap { margin: 8px 0; }
 .budget-bar-meta {
   display: flex; justify-content: space-between;
@@ -75,6 +137,169 @@
 .quick-fill-btn {
   padding: 8px 14px; background: var(--accent);
   color: #fff; border: none; border-radius: var(--radius-sm);
-  font-size: 13px; font-weight: 700; transition: background .15s;
+  font-size: 13px; font-weight: 700; transition: background .15s; cursor: pointer;
 }
 .quick-fill-btn:hover { background: var(--accent-dark); }
+
+/* --- โหมดแก้เมนูจากปฏิทินสมาชิก: แบนเนอร์เด่น ค้างอยู่บนสุดตลอดการเลื่อนหน้า --- */
+.cal-edit-banner {
+  display: flex;
+  position: sticky;
+  top: 56px; /* ใต้ topnav ที่ sticky อยู่ที่ top:0 height 56px */
+  z-index: 90;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+.cal-edit-banner-text { display: flex; align-items: center; gap: 8px; font-size: 13.5px; flex-wrap: wrap; }
+.cal-edit-banner-label { opacity: .9; }
+.cal-edit-banner-date { font-weight: 800; font-size: 16px; font-family: 'Inter', sans-serif; }
+.cal-edit-banner-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.cal-edit-cancel-btn {
+  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.5); color: #fff;
+  padding: 10px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.cal-edit-cancel-btn:hover { background: rgba(255,255,255,.28); }
+.cal-edit-save-btn {
+  background: #fff; color: var(--accent-dark); border: none;
+  padding: 11px 22px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 800;
+  cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.18); transition: transform .1s, background .15s;
+}
+.cal-edit-save-btn:hover { background: #f3f3f3; }
+.cal-edit-save-btn:active { transform: scale(.97); }
+
+/* --- Ingredient Display & Customization UI --- */
+.ingredient-display-box {
+  background: var(--surface2);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.ing-normal {
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.ing-title {
+  font-weight: 700;
+  color: var(--text);
+  margin-right: 4px;
+}
+
+.ing-alts {
+  border-top: 1px dashed var(--border2);
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alt-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.alt-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.alt-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.alt-pill.selected {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.alt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.change-notice {
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 2px;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.change-summary {
+  margin-top: 10px;
+  padding: 8px;
+  background: var(--accent-dim);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+
+.change-item {
+  font-size: 11px;
+  color: var(--accent-dark);
+  margin-bottom: 2px;
+}
+/* ── ปุ่มบันทึกเมนู (เด่น, ขนาดใหญ่, มีเงา) ── */
+.plan-save-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: .3px;
+  box-shadow: 0 3px 12px rgba(var(--accent-rgb, 93,188,120), 0.40);
+  transition: transform .15s, box-shadow .15s, background .15s;
+  white-space: nowrap;
+}
+.plan-save-btn:hover {
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  box-shadow: 0 5px 18px rgba(var(--accent-rgb, 93,188,120), 0.50);
+  transform: translateY(-1px);
+}
+.plan-save-btn:active { transform: scale(.97); box-shadow: none; }
+
+/* ── ปุ่มกลับ (Back) ── */
+.btn-back {
+  padding: 7px 16px;
+  background: var(--surface2, #f5f5f5);
+  color: var(--text2, #555);
+  border: 1.5px solid var(--border, #ddd);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  white-space: nowrap;
+}
+.btn-back:hover { background: var(--accent-dim); color: var(--accent-dark); border-color: var(--accent); }
+.btn-back:active { transform: scale(.97); }

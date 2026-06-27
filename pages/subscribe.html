@@ -1,0 +1,61 @@
+<div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px">
+  <div>
+    <div class="section-title">สมัครสมาชิกรับอาหารรายวัน</div>
+    <div class="section-sub">เลือกมื้ออาหารและระยะเวลา ยิ่งเลือกนานยิ่งราคาต่อวันถูกลง</div>
+  </div>
+  <button class="btn-back" onclick="showPage('plan', document.querySelector('.subnav-tab[data-page=plan]'))">← แผนอาหาร</button>
+</div>
+
+<div class="sub-active-banner" id="sub-active-banner" style="display:none">
+  <span class="sub-active-dot"></span>
+  <span id="sub-active-text"></span>
+  <button class="btn-secondary" style="margin-left:auto" onclick="showPage('subcal', null)">ดูปฏิทินเมนู</button>
+  <button class="btn-secondary btn-cancel-sub" onclick="cancelSubscription()">ยกเลิกสมาชิก</button>
+</div>
+
+<div class="sub-layout">
+  <div>
+    <!-- เลือกมื้อ -->
+    <div class="card">
+      <div class="card-title">เลือกมื้ออาหารที่ต้องการรับ</div>
+      <div class="sub-meal-grid" id="sub-meal-toggles"></div>
+    </div>
+
+    <!-- เลือกแพ็กเกจ -->
+    <div class="card">
+      <div class="card-title">เลือกระยะเวลาแพ็กเกจ</div>
+      <div class="sub-plan-grid" id="sub-plan-cards"></div>
+    </div>
+
+    <!-- เลือกวันเริ่มส่ง -->
+    <div class="card">
+      <div class="card-title">วันที่ต้องการให้เริ่มส่ง</div>
+      <input type="date" class="sub-date-input" id="sub-start-date" onchange="onSubStartDateChange(this.value)">
+      <div class="sub-disclaimer" style="margin-top:8px; text-align:left;">ระบบจะจัดเมนูล่วงหน้าให้ครบทุกวันตามระยะเวลาที่เลือก แก้ไขเมนูแต่ละวันได้ในหน้า "ปฏิทินเมนู" หลังสมัคร</div>
+    </div>
+  </div>
+
+  <!-- สรุปคำสั่งซื้อ -->
+  <div class="sticky-summary">
+    <div class="card">
+      <div class="card-title">สรุปคำสั่งซื้อ</div>
+      <div class="sub-summary-row">
+        <span class="sub-summary-label">ระยะเวลา</span>
+        <span class="sub-summary-val" id="sub-summary-days">30 วัน</span>
+      </div>
+      <div class="sub-summary-row">
+        <span class="sub-summary-label">จำนวนมื้อ</span>
+        <span class="sub-summary-val" id="sub-summary-meals">3 มื้อ/วัน</span>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-summary-row sub-summary-row--total">
+        <span class="sub-summary-label">ยอดรวม</span>
+        <span class="sub-summary-total" id="sub-summary-total">0 บาท</span>
+      </div>
+      <div class="sub-summary-savings" id="sub-summary-savings" style="display:none"></div>
+
+      <button class="btn-primary" onclick="confirmSubscribe()">สมัครสมาชิกและจัดเมนูล่วงหน้า</button>
+      <div class="sub-disclaimer">ยกเลิกได้ทุกเมื่อ ไม่มีข้อผูกมัด</div>
+    </div>
+  </div>
+</div>

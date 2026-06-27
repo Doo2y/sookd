@@ -12,46 +12,51 @@
 <link rel="stylesheet" href="css/planner.css">
 <link rel="stylesheet" href="css/modal.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/subscribe.css">
 </head>
 <body>
 
-<!-- ── TOP NAV ── -->
+<!-- TOP NAV -->
 <header class="topnav">
   <div class="topnav-logo">Sook<span>D</span></div>
 
   <div class="topnav-search">
     <input type="text" placeholder="ค้นหารายการอาหาร หรือ กิจกรรม">
+    <span class="topnav-search-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </span>
   </div>
 
   <div class="topnav-right">
     <button class="topnav-phone">+66 92 505 4994</button>
     <button class="topnav-icon-btn">ข้อมูลส่วนตัว</button>
-    <button class="topnav-icon-btn">&#9825; รายการโปรด</button>
-    <button class="topnav-cart">&#128722; &#3647;130.00</button>
+    <button class="topnav-icon-btn">รายการโปรด</button>
+    <button class="topnav-cart">130.00 บาท</button>
   </div>
 </header>
 
-<!-- ── SUB NAV ── -->
+<!-- SUB NAV -->
 <nav class="subnav">
-  <button class="subnav-tab active" data-page="home"       onclick="showPage('home', this)">หน้าแรก</button>
-  <button class="subnav-tab"        data-page="calc"       onclick="showPage('calc', this)">คำนวณแคลอรี่</button>
-  <button class="subnav-tab"        data-page="foods"      onclick="showPage('foods', this)">รายการอาหาร</button>
-  <button class="subnav-tab"        data-page="plan"       onclick="showPage('plan', this)">แผนอาหาร</button>
-  <button class="subnav-tab"        data-page="history"    onclick="showPage('history', this)">โปรไฟล์</button>
-  <button class="subnav-tab"        data-page="activities" onclick="showPage('activities', this)">กิจกรรม</button>
-  <button class="subnav-tab"        data-page="articles"   onclick="showPage('articles', this)">บทความ</button>
-  <button class="subnav-tab"        data-page="about"      onclick="showPage('about', this)">เกี่ยวกับเรา</button>
+  <button class="subnav-tab active" onclick="showPage('home', this)">หน้าแรก</button>
+  <button class="subnav-tab" onclick="showPage('calc', this)">คำนวณแคลอรี่</button>
+  <button class="subnav-tab" onclick="showPage('foods', this)">รายการอาหาร</button>
+  <button class="subnav-tab" onclick="showPage('plan', this)">แผนอาหาร</button>
+  <button class="subnav-tab" onclick="showPage('subscribe', this)">สมัครสมาชิก</button>
+  <button class="subnav-tab" onclick="showPage('history', this)">โปรไฟล์</button>
+  <button class="subnav-tab" onclick="showPage('activity', this)">กิจกรรม</button>
+  <button class="subnav-tab" onclick="showPage('article', this)">บทความ</button>
+  <button class="subnav-tab" onclick="showPage('about', this)">เกี่ยวกับเรา</button>
 </nav>
 
-<!-- ── PAGE CONTENT ── -->
+<!-- PAGE CONTENT -->
 <div id="page-content" class="container"></div>
 
-<!-- ── FOOD MODAL ── -->
+<!-- FOOD MODAL -->
 <div class="modal-overlay" id="food-modal" onclick="closeModalOutside(event)"></div>
 
-<!-- ── TOAST ── -->
+<!-- TOAST -->
 <div class="toast" id="toast">
-  <span class="toast-icon" id="toast-icon">✓</span>
+  <span class="toast-icon" id="toast-icon">&#10003;</span>
   <span id="toast-msg">บันทึกแล้ว</span>
 </div>
 
@@ -64,6 +69,8 @@
 <script src="js/planner.js"></script>
 <script src="js/modal.js"></script>
 <script src="js/history.js"></script>
+<script src="js/subscribe.js"></script>
+<script src="js/sub-calendar.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/main.js"></script>
 </body>

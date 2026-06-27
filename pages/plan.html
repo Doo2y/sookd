@@ -6,8 +6,23 @@
   <div class="plan-page-actions">
     <button class="quick-fill-btn" onclick="autoFill()">จัดเซ็ตเมนูอัตโนมัติ</button>
     <button class="btn-secondary" onclick="clearPlan()">ล้างทั้งหมด</button>
+    <button class="btn-secondary" id="plan-sub-cta" onclick="goToSubscribeWithPlan()">สมัครรับแผนนี้เป็นชุด</button>
+    <button class="plan-save-btn" id="plan-save-profile-btn" onclick="saveAndGoToProfile()">บันทึกเมนูวันนี้</button>
   </div>
 </div>
+
+<div class="cal-edit-banner" id="plan-cal-edit-banner" style="display:none">
+  <div class="cal-edit-banner-text">
+    <span class="cal-edit-banner-label">กำลังแก้เมนูวันที่</span>
+    <span class="cal-edit-banner-date" id="plan-cal-edit-date"></span>
+  </div>
+  <div class="cal-edit-banner-actions">
+    <button class="cal-edit-cancel-btn" onclick="cancelCalDayEdit()">ยกเลิก</button>
+    <button class="cal-edit-save-btn" onclick="saveCalDayEditAndReturn()">✓ บันทึกและกลับไปปฏิทิน</button>
+  </div>
+</div>
+
+<div class="sub-active-banner" id="plan-sub-banner" style="display:none"></div>
 
 <div class="planner-layout">
   <!-- meal sections -->

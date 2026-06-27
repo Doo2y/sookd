@@ -1,23 +1,28 @@
-// ══════════════════════════════════════════════════
-//  nav.js · Page navigation with HTML partials
-// ══════════════════════════════════════════════════
+// nav.js - Page navigation with HTML partials
 
 const _pageCache = {};
 
 const PAGE_CONFIG = {
-  home:       { container: 'container',      partial: 'pages/home.html' },
-  calc:       { container: 'container',      partial: 'pages/calc.html' },
-  foods:      { container: 'container',      partial: 'pages/foods.html' },
-  macro:      { container: 'container',      partial: 'pages/macro.html' },
-  plan:       { container: 'container-wide', partial: 'pages/plan.html' },
-  history:    { container: 'container',      partial: 'pages/history.html' },
-  activities: { container: 'container',      partial: 'pages/activities.html' },
-  articles:   { container: 'container',      partial: 'pages/articles.html' },
-  about:      { container: 'container',      partial: 'pages/about.html' },
+  home:      { container: 'container-wide', partial: 'pages/home.html' },
+  calc:      { container: 'container',      partial: 'pages/calc.html' },
+  foods:     { container: 'container',      partial: 'pages/foods.html' },
+  macro:     { container: 'container',      partial: 'pages/macro.html' },
+  plan:      { container: 'container-wide', partial: 'pages/plan.html' },
+  subscribe: { container: 'container-wide', partial: 'pages/subscribe.html' },
+  subcal:    { container: 'container-wide', partial: 'pages/sub-calendar.html' },
+  history:   { container: 'container',      partial: 'pages/history.html' },
+  activity:  { container: 'container',      partial: 'pages/activity.html' },
+  article:   { container: 'container',      partial: 'pages/article.html' },
+  about:     { container: 'container',      partial: 'pages/about.html' },
 };
 
 async function showPage(name, btn) {
-  // อัปเดต subnav active tab
+  // ถ้ากำลังแก้เมนูวันใดวันหนึ่งจากปฏิทินสมาชิกอยู่ แล้วผู้ใช้กดออกไปหน้าอื่นโดยไม่ได้กดบันทึก/ยกเลิกเอง
+  // ให้ทิ้งการแก้ไขนั้นไปอัตโนมัติ (กันไม่ให้สถานะค้างและสับสน)
+  if (typeof _calEditingDate !== 'undefined' && _calEditingDate && name !== 'plan' && name !== 'subcal') {
+    if (typeof discardCalDayEdit === 'function') discardCalDayEdit();
+  }
+
   document.querySelectorAll('.subnav-tab').forEach(t => t.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
@@ -40,15 +45,16 @@ async function showPage(name, btn) {
   wrapper.innerHTML = html;
 
   const inits = {
-    calc:    () => { syncCalcForm(); updateCalcResults(); },
-    foods:   () => { renderFoodsList(); },
-    macro:   () => { updateMacroUI(); },
-    plan:    () => { renderPlan(); updatePlanSummary(); syncMealToggle(); },
-    history: () => { renderHistory(); },
+    calc:      () => { syncCalcForm(); updateCalcResults(); },
+    foods:     () => { renderFoodsList(); },
+    macro:     () => { updateMacroUI(); },
+    plan:      () => { renderPlanModeUI(); renderPlan(); updatePlanSummary(); syncMealToggle(); },
+    subscribe: () => { initSubscribePage(); },
+    subcal:    () => { initSubCalendarPage(); },
+    history:   () => { renderHistory(); },
   };
 
   if (inits[name]) inits[name]();
-
   state.currentPage = name;
 }
 

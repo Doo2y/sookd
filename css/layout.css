@@ -195,6 +195,14 @@ select.form-input {
 .btn-primary:hover { background: var(--accent-dark); }
 .btn-primary:active { transform: scale(.99); }
 
+/* ปุ่ม primary ที่อยู่ในกริดเดียวกับ btn-secondary (หน้า home) ให้ขนาดเท่ากัน */
+.btn-hero {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 13px;
+  margin-top: 0;
+}
+
 .btn-secondary {
   padding: 8px 14px;
   background: var(--surface2);

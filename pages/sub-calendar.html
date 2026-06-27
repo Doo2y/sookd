@@ -1,0 +1,20 @@
+<div class="plan-page-header">
+  <div>
+    <div class="section-title">ปฏิทินเมนูแพ็กเกจของคุณ</div>
+    <div class="section-sub" id="cal-range-sub">เลือกหรือแก้ไขเมนูแต่ละวันก่อนถึงรอบจัดส่ง</div>
+  </div>
+  <div class="plan-page-actions">
+    <button class="btn-back" onclick="showPage('plan', document.querySelector('.subnav-tab[data-page=plan]'))">← แผนอาหาร</button>
+    <button class="quick-fill-btn" onclick="calAutoFillAll()">สุ่มเมนูให้ทุกวัน</button>
+    <button class="btn-secondary" onclick="calRepeatFirstDay()">ใช้เมนูวันแรกซ้ำทุกวัน</button>
+    <button class="btn-secondary btn-cancel-sub" onclick="cancelSubscription()">ยกเลิกสมาชิก</button>
+  </div>
+</div>
+
+<div class="cal-legend">
+  <div class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--accent)"></span>วันนี้</div>
+  <div class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--border2)"></span>มีเมนูแล้ว</div>
+  <div class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--rose)"></span>หยุดส่ง</div>
+</div>
+
+<div class="cal-grid" id="cal-grid"></div>

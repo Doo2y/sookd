@@ -1,4 +1,7 @@
-<div class="page-title">คำนวณแคลอรี่</div>
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:4px">
+  <div class="page-title" style="margin:0">คำนวณแคลอรี่</div>
+  <button class="btn-back" onclick="showPage('plan', document.querySelector('.subnav-tab[data-page=plan]'))">← แผนอาหาร</button>
+</div>
 
 <div class="card">
   <div class="card-title">คำนวณมวลร่างกาย</div>
@@ -27,12 +30,46 @@
   <!-- BMI display + figure -->
   <div class="bmi-center-block">
     <div class="bmi-result-line" id="res-bmi-line">BMI: <span id="res-bmi" style="color:var(--accent)">21.0</span> (<span id="res-bmi-status-inline">น้ำหนักปกติ</span>)</div>
-    <div class="bmi-figure-row">
-      <div class="bmi-dot-mark" id="bmi-dot-left"></div>
-      <div class="bmi-dot-mark" id="bmi-dot-right"></div>
+
+    <!-- SVG Gauge แทน emoji -->
+    <div style="display:flex;justify-content:center;margin:8px 0 2px">
+      <svg id="bmi-gauge-svg" viewBox="0 0 220 130" width="220" height="130" xmlns="http://www.w3.org/2000/svg">
+        <!-- zone arcs (semi-circle r=90, cx=110, cy=115) -->
+        <!-- ผอม: 0–20% = 0–36deg -->
+        <path id="bmi-arc-thin"    d="" stroke="#60aef7" stroke-width="16" fill="none" stroke-linecap="butt"/>
+        <!-- ปกติ: 20–45% = 36–81deg -->
+        <path id="bmi-arc-normal"  d="" stroke="#5dbc78" stroke-width="16" fill="none" stroke-linecap="butt"/>
+        <!-- ท้วม: 45–65% = 81–117deg -->
+        <path id="bmi-arc-chubby"  d="" stroke="#f5a623" stroke-width="16" fill="none" stroke-linecap="butt"/>
+        <!-- อ้วน1: 65–90% = 117–162deg -->
+        <path id="bmi-arc-fat"     d="" stroke="#f07070" stroke-width="16" fill="none" stroke-linecap="butt"/>
+        <!-- อ้วนมาก: 90–100% = 162–180deg -->
+        <path id="bmi-arc-obese"   d="" stroke="#d93a5a" stroke-width="16" fill="none" stroke-linecap="butt"/>
+
+        <!-- track background -->
+        <path id="bmi-gauge-track" d="" stroke="var(--border,#e5e7eb)" stroke-width="16" fill="none" stroke-linecap="butt"/>
+
+        <!-- zone labels -->
+        <text x="14"  y="118" font-size="9" fill="#60aef7" font-family="Sarabun,sans-serif" text-anchor="middle">ผอม</text>
+        <text x="62"  y="44"  font-size="9" fill="#5dbc78" font-family="Sarabun,sans-serif" text-anchor="middle">ปกติ</text>
+        <text x="118" y="28"  font-size="9" fill="#f5a623" font-family="Sarabun,sans-serif" text-anchor="middle">ท้วม</text>
+        <text x="170" y="44"  font-size="9" fill="#f07070" font-family="Sarabun,sans-serif" text-anchor="middle">อ้วน</text>
+        <text x="206" y="90"  font-size="9" fill="#d93a5a" font-family="Sarabun,sans-serif" text-anchor="middle">มาก</text>
+
+        <!-- needle -->
+        <line id="bmi-needle" x1="110" y1="115" x2="110" y2="35"
+              stroke="var(--text,#1a1a1a)" stroke-width="2.5" stroke-linecap="round"
+              transform="rotate(0 110 115)" style="transition:transform .5s cubic-bezier(.34,1.56,.64,1)"/>
+        <circle cx="110" cy="115" r="6" fill="var(--text,#1a1a1a)"/>
+        <circle cx="110" cy="115" r="3" fill="#fff"/>
+
+        <!-- center value -->
+        <text id="bmi-gauge-val"   x="110" y="102" font-size="19" font-weight="800" fill="var(--text,#1a1a1a)" font-family="Inter,sans-serif" text-anchor="middle">21.0</text>
+        <text id="bmi-gauge-label" x="110" y="116" font-size="10" fill="var(--text3,#888)"  font-family="Sarabun,sans-serif" text-anchor="middle">น้ำหนักปกติ</text>
+      </svg>
     </div>
-    <div class="bmi-person-icon">&#128694;</div>
-    <div class="bmi-bar-track" style="margin-top:10px">
+
+    <div class="bmi-bar-track" style="margin-top:4px">
       <div class="bmi-bar-fill" id="res-bmi-bar" style="width:40%;background:var(--accent)"></div>
     </div>
     <div class="bmi-scale-labels">
@@ -81,5 +118,5 @@
     </div>
   </div>
 
-  <button class="btn-primary" onclick="applyCalc()">ต่อไป</button>
+  <button class="btn-primary" onclick="applyCalc(); showPage('macro')">ต่อไป</button>
 </div>

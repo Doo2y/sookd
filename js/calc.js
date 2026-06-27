@@ -60,15 +60,8 @@ function updateCalcResults() {
   if (bmiStatus) bmiStatus.textContent = bmiLabel;
   if (bmiBar)    { bmiBar.style.width = barPct + '%'; bmiBar.style.background = bmiColor; }
 
-  // person icon color hint via CSS filter based on bmi category
-  const person = document.querySelector('.bmi-person-icon');
-  if (person) {
-    person.style.color = bmiColor;
-    person.style.filter = bmi < 18.5 ? 'hue-rotate(200deg) saturate(2)'
-                        : bmi < 23   ? 'hue-rotate(100deg) saturate(2)'
-                        : bmi < 25   ? 'hue-rotate(30deg) saturate(2)'
-                        : 'hue-rotate(330deg) saturate(2)';
-  }
+  // ── BMI Gauge SVG ──
+  updateBMIGauge(bmi, bmiColor, bmiLabel, barPct);
 
   // sync macro slider if already loaded
   const calSlider = document.getElementById('macro-cal-slider');
@@ -84,6 +77,73 @@ async function applyCalc() {
   onCalcInput();
   persistState();
   showToast('✓', 'บันทึกและตั้งค่าแล้ว');
-  // ไปหน้าปรับสัดส่วนโภชนาการ
-  await showPage('macro', null);
+  const nextSection = document.getElementById('foods'); 
+  if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// ── BMI Gauge: วาด arc + หมุน needle ──
+function updateBMIGauge(bmi, color, label, barPct) {
+  const cx = 110, cy = 115, r = 90;
+  // semi-circle: 180° from left (180°) to right (0°) going counter-clockwise
+  // In SVG coords: start at left = 180+90=270° from east... easier to parameterise:
+  // angle 0% = -180deg (left), 100% = 0deg (right), center at top = -90deg
+
+  function polarToXY(angleDeg) {
+    const rad = (angleDeg * Math.PI) / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  }
+
+  // pct → angle: 0%=180° left, 100%=0° right (going CCW from left through top to right)
+  function pctToAngle(pct) { return 180 - pct * 1.8; } // 0→180, 100→0
+
+  function arcPath(pct1, pct2) {
+    const a1 = pctToAngle(pct1);
+    const a2 = pctToAngle(pct2);
+    const p1 = polarToXY(a1);
+    const p2 = polarToXY(a2);
+    // always large-arc=0 since each zone < 90deg
+    const large = Math.abs(pct2 - pct1) > 50 ? 1 : 0;
+    return `M ${p1.x} ${p1.y} A ${r} ${r} 0 ${large} 0 ${p2.x} ${p2.y}`;
+  }
+
+  // zone boundaries in pct
+  const zones = [
+    { id:'bmi-arc-thin',   p1:0,  p2:20 },
+    { id:'bmi-arc-normal', p1:20, p2:45 },
+    { id:'bmi-arc-chubby', p1:45, p2:65 },
+    { id:'bmi-arc-fat',    p1:65, p2:90 },
+    { id:'bmi-arc-obese',  p1:90, p2:100},
+  ];
+  zones.forEach(z => {
+    const el = document.getElementById(z.id);
+    if (el) el.setAttribute('d', arcPath(z.p1, z.p2));
+  });
+
+  // track (full arc, behind zones)
+  const track = document.getElementById('bmi-gauge-track');
+  if (track) track.setAttribute('d', arcPath(0, 100));
+
+  // needle: pct → rotation around center
+  // needle rests pointing UP (−90deg from SVG east = 12 o'clock)
+  // we rotate it from there: -90 + barPct*1.8 deg
+  const needleAngle = -90 + barPct * 1.8;   // relative to east
+  // but SVG rotate() reference is around cx,cy with 0=right
+  // our needle element goes from cy to cy-80 (straight up at rotate 0)
+  // so at rotate=0 needle points up → pct=50 should rotate 0, pct=0 should rotate -90, pct=100=+90
+  const needleRot = (barPct - 50) * 1.8;    // -90 … +90
+  const needle = document.getElementById('bmi-needle');
+  if (needle) needle.setAttribute('transform', `rotate(${needleRot} ${cx} ${cy})`);
+
+  // update needle color
+  if (needle) needle.setAttribute('stroke', color);
+  const dot = document.querySelector('#bmi-gauge-svg circle');
+  if (dot) dot.setAttribute('fill', color);
+
+  // center text
+  const valEl   = document.getElementById('bmi-gauge-val');
+  const lblEl   = document.getElementById('bmi-gauge-label');
+  if (valEl)  { valEl.textContent = bmi.toFixed(1); valEl.setAttribute('fill', color); }
+  if (lblEl)  lblEl.textContent = label;
 }
